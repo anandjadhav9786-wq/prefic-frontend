@@ -351,7 +351,7 @@
     }
 
     loginBtn.addEventListener('click', async () => {
-      const password = adminPassword.value.trim();
+      const password = adminPassword.value.trim(); console.log('Password being sent:', password, 'Length:', password.length);
       if (!password) {
         showLoginError('Please enter a password');
         return;
@@ -400,6 +400,7 @@
   </div>
 </body>
 </html>
+
 
 
 
