@@ -1,0 +1,17 @@
+{
+  "name": "prefiction-frontend",
+  "version": "1.0.0",
+  "description": "PREFICTION Frontend - B2B SaaS Marketing Website",
+  "type": "module",
+  "scripts": {
+    "dev": "python -m http.server 3001",
+    "start": "python -m http.server 3001",
+    "build": "echo 'No build step required for static site'"
+  },
+  "keywords": ["frontend", "static-site", "marketing"],
+  "author": "PREFICTION Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
