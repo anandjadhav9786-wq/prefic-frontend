@@ -211,7 +211,7 @@
       if (!confirm('Are you sure you want to delete this submission?')) return;
 
       try {
-        const res = await fetch(`/admin/submissions/${id}`, { 
+        const res = await fetch(window.PREFICTION_API_BASE + `/admin/submissions/${id}`, { 
           method: 'DELETE',
           credentials: 'same-origin'
         });
@@ -244,7 +244,7 @@
 
       try {
         const fetchOptions = key ? { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-api-key': key }, credentials: 'same-origin' } : { method: 'POST', credentials: 'same-origin' };
-        const res = await fetch('/admin/submissions', fetchOptions);
+        const res = await fetch(window.PREFICTION_API_BASE + '/admin/submissions', fetchOptions);
         if (!res.ok) {
           const json = await res.json().catch(() => ({}));
           throw new Error(json?.error || res.statusText);
@@ -360,7 +360,7 @@
       loginBtn.disabled = true;
       loginBtn.textContent = 'Checking...';
       try {
-        const resp = await fetch('/admin/verify', {
+        const resp = await fetch(window.PREFICTION_API_BASE + '/admin/verify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'same-origin',
@@ -400,3 +400,6 @@
   </div>
 </body>
 </html>
+
+
+
