@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <script>window.PREFICTION_API_BASE="https://prefic-backend-69r9.vercel.app";</script>
@@ -23,7 +23,7 @@
   <!-- Password Login Modal -->
   <div id="loginModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-sm">
     <div class="glass-panel rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4">
-      <h2 class="text-2xl font-bold text-gray-800 mb-2">🔐 Admin Access</h2>
+      <h2 class="text-2xl font-bold text-gray-800 mb-2">ðŸ” Admin Access</h2>
       <p class="text-gray-600 mb-6">Enter the admin password to continue</p>
       
       <div class="mb-4">
@@ -51,7 +51,7 @@
   <div class="max-w-6xl mx-auto">
     <!-- Header -->
     <div class="mb-8 text-white">
-      <h1 class="text-4xl font-bold mb-2">📊 Submissions Admin</h1>
+      <h1 class="text-4xl font-bold mb-2">ðŸ“Š Submissions Admin</h1>
       <p class="text-blue-100">Manage and view all contact form submissions</p>
     </div>
 
@@ -72,7 +72,7 @@
           id="fetchBtn"
           class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-8 py-2 rounded-lg transition duration-200 shadow-lg"
         >
-          🔄 Fetch Data
+          ðŸ”„ Fetch Data
         </button>
       </div>
 
@@ -90,10 +90,10 @@
           </h2>
           <div class="flex gap-2">
             <button id="exportJsonBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
-              📄 Export JSON
+              ðŸ“„ Export JSON
             </button>
             <button id="exportDocBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
-              📄 Export DOC
+              ðŸ“„ Export DOC
             </button>
           </div>
         </div>
@@ -118,7 +118,7 @@
 
       <!-- Empty State -->
       <div id="emptyState" class="empty-state">
-        <div class="text-6xl mb-4">📭</div>
+        <div class="text-6xl mb-4">ðŸ“­</div>
         <p class="text-lg font-semibold">No data loaded yet</p>
         <p class="text-sm">Enter your API key and click "Fetch Data" to see submissions</p>
       </div>
@@ -191,10 +191,10 @@
           <td class="px-6 py-4 font-semibold text-gray-700">${index + 1}</td>
           <td class="px-6 py-4 font-medium text-gray-900">${escapeHtml(row.name)}</td>
           <td class="px-6 py-4 text-gray-600"><a href="mailto:${escapeHtml(row.email)}" class="text-blue-600 hover:underline">${escapeHtml(row.email)}</a></td>
-          <td class="px-6 py-4 text-gray-600">${escapeHtml(row.company || '—')}</td>
-          <td class="px-6 py-4 text-gray-600 max-w-xs truncate">${escapeHtml(row.message || '—')}</td>
+          <td class="px-6 py-4 text-gray-600">${escapeHtml(row.company || 'â€”')}</td>
+          <td class="px-6 py-4 text-gray-600 max-w-xs truncate">${escapeHtml(row.message || 'â€”')}</td>
           <td class="px-6 py-4 text-gray-500 whitespace-nowrap text-xs">${formatDate(row.createdAt)}</td>
-          <td class="px-6 py-4"><button class="delete-btn bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs font-semibold transition" data-id="${row._id}">🗑️ Delete</button></td>
+          <td class="px-6 py-4"><button class="delete-btn bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs font-semibold transition" data-id="${row._id}">ðŸ—‘ï¸ Delete</button></td>
         `;
         tableBody.appendChild(tr);
         tr.querySelector('.delete-btn').addEventListener('click', () => deleteSubmission(row._id, tr));
@@ -213,7 +213,7 @@
       try {
         const res = await fetch(window.PREFICTION_API_BASE + `/admin/submissions/${id}`, { 
           method: 'DELETE',
-          credentials: 'same-origin'
+          credentials: 'include'
         });
         if (res.ok) {
           rowElement.style.opacity = '0.5';
@@ -221,29 +221,29 @@
           setTimeout(() => rowElement.remove(), 300);
           currentData = currentData.filter(d => d._id !== id);
           countDisplay.textContent = currentData.length;
-          setStatus('✅ Submission deleted successfully', 'success');
+          setStatus('âœ… Submission deleted successfully', 'success');
         } else {
           const json = await res.json().catch(() => ({}));
           throw new Error(json?.error || 'Failed to delete');
         }
       } catch (err) {
-        setStatus(`❌ Delete failed: ${err.message}`, 'error');
+        setStatus(`âŒ Delete failed: ${err.message}`, 'error');
       }
     }
 
     fetchBtn.addEventListener('click', async () => {
       const key = apiKeyInput.value.trim();
       if (!key) {
-        setStatus('⚠️ Enter an API key', 'error');
+        setStatus('âš ï¸ Enter an API key', 'error');
         return;
       }
 
-      setStatus('🔄 Fetching submissions...', 'loading');
+      setStatus('ðŸ”„ Fetching submissions...', 'loading');
       fetchBtn.disabled = true;
-      fetchBtn.textContent = '⏳ Loading...';
+      fetchBtn.textContent = 'â³ Loading...';
 
       try {
-        const fetchOptions = key ? { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-api-key': key }, credentials: 'same-origin' } : { method: 'POST', credentials: 'same-origin' };
+        const fetchOptions = key ? { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-api-key': key }, credentials: 'include' } : { method: 'POST', credentials: 'include' };
         const res = await fetch(window.PREFICTION_API_BASE + '/admin/submissions', fetchOptions);
         if (!res.ok) {
           const json = await res.json().catch(() => ({}));
@@ -253,14 +253,14 @@
         const json = await res.json().catch(() => ({ rows: [] }));
         currentData = json.rows || [];
         renderTable(currentData);
-        setStatus(`✅ Loaded ${currentData.length} submission${currentData.length !== 1 ? 's' : ''} successfully`, 'success');
+        setStatus(`âœ… Loaded ${currentData.length} submission${currentData.length !== 1 ? 's' : ''} successfully`, 'success');
       } catch (err) {
-        setStatus(`❌ Error: ${err.message}`, 'error');
+        setStatus(`âŒ Error: ${err.message}`, 'error');
         tableView.style.display = 'none';
         emptyState.style.display = 'block';
       } finally {
         fetchBtn.disabled = false;
-        fetchBtn.textContent = '🔄 Fetch Data';
+        fetchBtn.textContent = 'ðŸ”„ Fetch Data';
       }
     });
 
@@ -277,7 +277,7 @@
 
     exportDocBtn.addEventListener('click', () => {
       if (currentData.length === 0) {
-        setStatus('⚠️ No data to export', 'error');
+        setStatus('âš ï¸ No data to export', 'error');
         return;
       }
 
@@ -299,10 +299,10 @@
         currentData.forEach((row, idx) => {
           html += '<tr>';
           html += '<td>' + (idx + 1) + '</td>';
-          html += '<td>' + (row.name || '—') + '</td>';
-          html += '<td>' + (row.email || '—') + '</td>';
-          html += '<td>' + (row.company || '—') + '</td>';
-          html += '<td>' + (row.message || '—') + '</td>';
+          html += '<td>' + (row.name || 'â€”') + '</td>';
+          html += '<td>' + (row.email || 'â€”') + '</td>';
+          html += '<td>' + (row.company || 'â€”') + '</td>';
+          html += '<td>' + (row.message || 'â€”') + '</td>';
           html += '<td>' + formatDate(row.createdAt) + '</td>';
           html += '</tr>';
         });
@@ -319,10 +319,10 @@
         a.click();
         URL.revokeObjectURL(url);
         
-        setStatus('✅ DOC exported successfully!', 'success');
+        setStatus('âœ… DOC exported successfully!', 'success');
       } catch (err) {
         console.error('DOC Error:', err);
-        setStatus('❌ DOC export failed: ' + err.message, 'error');
+        setStatus('âŒ DOC export failed: ' + err.message, 'error');
       }
     });
 
@@ -363,7 +363,7 @@
         const resp = await fetch(window.PREFICTION_API_BASE + '/admin/verify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          credentials: 'same-origin',
+          credentials: 'include',
           body: JSON.stringify({ password })
         });
 
@@ -373,7 +373,7 @@
           adminPanel.style.display = 'block';
           adminPassword.value = '';
         } else {
-          showLoginError('❌ Incorrect password. Try again.');
+          showLoginError('âŒ Incorrect password. Try again.');
           adminPassword.value = '';
         }
       } catch (err) {
@@ -400,6 +400,7 @@
   </div>
 </body>
 </html>
+
 
 
 
